@@ -13,9 +13,9 @@
         margin: 0;
       }
       canvas { background-color: #0a0a0a; }
-      
     </style>
   </head>
+
   <body>
     <canvas id="gameCanvas" width="1000" height="500"></canvas>
     <script>
@@ -89,6 +89,7 @@
       let highScore      = localStorage.getItem("piniHighScore") ? parseInt(localStorage.getItem("piniHighScore")) : 0;
       let scene          = "title";
       let lastSpawnedType = "";
+      let lastTime       = 0;
  
 
       const GROUND = 305;
@@ -103,6 +104,7 @@
         nextObstacleIn = 90;
         frame          = 0;
         groundX        = 0;
+        lastTime       = 0;
       }
 
       // Input
@@ -251,8 +253,11 @@
         ctx.fillText("Press Space to restart", 500, 295);
       }
 
-      function gameLoop() {
+      function gameLoop(timestamp) {
+        const deltaTime = lastTime === 0 ? 1 : (timestamp - lastTime) / (1000 / 60);
+        lastTime = timestamp; 
         ctx.imageSmoothingEnabled = false;
+
         if (scene === "title") {
           drawTitleScreen();
           requestAnimationFrame(gameLoop);
@@ -267,10 +272,10 @@
 
         frame++;
         const speedMultiplier = score >= 15 ? 1 + Math.min((score - 15)/100, 1.2) : 1;
-        groundX += 1.5 * speedMultiplier;
+        groundX += 1.5 * speedMultiplier * deltaTime;
 
-        speedY += 0.2;
-        oy     += speedY;
+        speedY += 0.2 * deltaTime;
+        oy     += speedY * deltaTime;
         if (oy >= GROUND) {
           oy      = GROUND;
           speedY  = 0;
@@ -305,7 +310,7 @@
           console.log("type:", type, "lastType:", lastType, "isBig:", isBig, "minGap:", minGap, "nextObstacleIn:", nextObstacleIn);
         }
 
-        for (let ob of obstacles) ob.x -= Math.round(2.5 * speedMultiplier);
+        for (let ob of obstacles) ob.x -= Math.round(2.5 * speedMultiplier * deltaTime);
         obstacles = obstacles.filter(ob => {
           if (ob.x + ob.w < ox && !ob.passed) {
             ob.passed = true;
