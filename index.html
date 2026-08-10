@@ -21,6 +21,14 @@
     <script>
       const canvas = document.getElementById("gameCanvas");
       const ctx    = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+      if (dpr > 1) {
+        canvas.width = 1000 * dpr;
+        canvas.height = 500 * dpr;
+        canvas.style.width = "1000px";
+        canvas.style.height = "500px";
+        ctx.scale(dpr, dpr);
+      }
 
       // Colours
       const BODY  = "#a0662a";
