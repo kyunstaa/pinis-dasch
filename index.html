@@ -284,7 +284,7 @@
         }
 
      //Spawn block
-        nextObstacleIn--;
+        nextObstacleIn -= deltaTime;
         if (nextObstacleIn <= 0) {
           const lastType = lastSpawnedType;
           const noBig = lastType === "mimi" || lastType === "steve" || lastType === "inca";
