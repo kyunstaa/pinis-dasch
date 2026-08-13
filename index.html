@@ -77,6 +77,14 @@
       const frame4Img = new Image();
       frame4Img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAE0UlEQVR4AeyYPYgVVxiGzw0kJFktglUSUqQLJEVCmtgHAzYWIWARAiEQq/xIsgsWpjDKgosRYpNNcAMhgiAiIgoqgo21FiK6jaCINiLsuvjTrPuMvrPH786ZOWfuzN2fO8u+9/s935z3nTP33t1XnHOLowwEWOI/ur+dAKN7758z7zsBi4uLbj3jOe3l1z4Blkuj4XUCjMZ9DrPsTkBYm+XK2dOn3VrEMoOw152AsDajURnaCdj141fOx2qRt3UBRNoSDuVtX9tx6wI0TeDMuTPOx6DzWxWAu1y1wZieshmpYthZrQrAxf49sN8JxEAxlngl0aoAdx5uzLht2fG7A8SQxheyhhovW7dsdYJdrlNh80VxLQG4QNEw8kC1c9O7M+JYAeLysYhCP+vKQE8bSBaATWoj+ECxrHLf/jLhIAlpwcb/zcxo2YrYJAFELHank38ey1ohLZCQjyUGHGcswAf4wPeJm0SSAE1eeLXM6gRo+07ce/X94CWOPj7hLs7/EawPo9D6CYDgg7mFPi5+jh6gJnygOMWmrosSgKHA34gf4wNb93MQ9uH3yn9z83UHFMsyR6jKUWcGwK9ClAAawlCBnO/7MXlicPy32+77vYdx+0AN9BVeJJgDXoS5sTlikDckOEkCxM6FlKA1vgj4TzZ9pJJTr2xeKHDqEi0YlaUaE0Cbx2aTzcuhgwezkwB5Sj/s3OnI4VuEZtA389NVJxAPitoCbHr6sQNsoGzD1OuAmcwXmAFxrGBj5VNsLQHYlC7i+8rFWO4+pyCml54Q2VCeNTFIEgCywB98/7Urfhj0IQvpYENB4e+9p7Ls1Pj/2d8U/lfnrOC9sC/BS7sqP1oAhtthkOeo2nzT8fjU1/lIRPDx7ob5/FFUE3sFistslAChYSnkufucAm0Gn5ziupb/L9i13Bhg80VxlAD+QgYLfj7VhzwipK6z/fzJrf1gbb0qjhKAwULVwIWF/q+9dk0RedYB26v4/NxNubndP3XXfbFvcx7LCZ1Y1X0bJYC/oK5fdbfHxsZKR1+eft1BWE18rca/degzTI7YG6UFQxNAF8RWiUGPD8grhjhQjEUEgJ+KFRGgbJP2MfDJs+6f6TknEPuoI8KqEqDqMfDJhvxUEVaVACFSqfkUEdalACmCdQLEqMXnqhDTb9/IYtaEeuYfPXAT429n8HuUo+7n5cc+BlEngM9WDUYI+UW2iTcyzf1gw+du4xtv5Z//kKYm+86n29zhk7tcSAQX8RMlgCVt44jrDNzCl6Dde65lc7CQ/3n7Xw4gEiKArCHhJUqAonnDEAFiRdcm/922yZdK5EikihAlAI+AwEVWAkXEbA4R2JvNkwshSgB/sS/El3ve80u53+T7QD50yRHBJTd7b8BasvQAajFIFkBDEUK+tU1+CjDbkiQHRDRUp6cKtQVgcMo/ROhPBcQA60QW34fy6lPtkx2P5ZbagQQomzzIKWAtj9eHEzeyoy6Soeupjggg1FeUb0WAQd4DWAuKNluWQwShrM/WWhHAXmTYcezxZ18DCcAxZUgR6tzFojlt56IEmNx+wYUwOzvr2oCud+TSPpeKX7854ECMeFECxAxaqz2dAGv1zjW17+4EWCV7vZ7r9dYvLN/uBFhFRi1e8ydg0Bv2DAAA//933Bq+AAAABklEQVQDAKnRzG7HD7b7AAAAAElFTkSuQmCC";
 
+      // Background music - game play
+      const bgMusic = new Audio("gameplay.mp3");
+      bgMusic.loop = true;
+
+
+
+
+
 
       // Player
       const p  = 3;
@@ -117,10 +125,13 @@
 
         if (scene === "title") {
           scene = "game";
+          bgMusic.play();
           return;
         }
 
         if (gameOver) {
+          bgMusic.pause();
+          bgMusic.currentTime = 0;
           resetGame();
           return;
         }
