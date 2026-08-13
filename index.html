@@ -82,10 +82,6 @@
       bgMusic.loop = true;
       bgMusic.volume = 0.5;
 
-      //Game Over Music
-      const goMusic = new Audio("gameoversong.mp3");
-      goMusic.loop = true;
-
 
       // Player
       const p  = 3;
@@ -104,7 +100,7 @@
       let highScore      = localStorage.getItem("piniHighScore") ? parseInt(localStorage.getItem("piniHighScore")) : 0;
       let scene          = "title";
       let lastSpawnedType = "";
-      let goMusicStarted = false;
+    
        
 
       const GROUND = 305;
@@ -134,10 +130,6 @@
         }
 
         if (gameOver) {
-          console.log("restarting game");
-          goMusicStarted = false;
-          goMusic.pause();
-          goMusic.currentTime = 0;
           bgMusic.currentTime = 0;
           bgMusic.play();
           resetGame();
@@ -285,13 +277,6 @@
           return;
         }
 
-        if (gameOver) {
-         if (!goMusicStarted) {
-           goMusicStarted = true;
-           bgMusic.pause();
-           bgMusic.currentTime = 0;
-           goMusic.play().catch(e => console.log("audio error:", e));
-       }
          drawGameOver();
          requestAnimationFrame(gameLoop);
          return;
@@ -334,7 +319,6 @@
           } else {
             nextObstacleIn = Math.max(scaledMinGap, Math.floor(Math.random() * 80) + 140);
           }
-          console.log("type:", type, "lastType:", lastType, "isBig:", isBig, "minGap:", minGap, "nextObstacleIn:", nextObstacleIn);
         }
 
         for (let ob of obstacles) ob.x -= Math.round(2.5 * speedMultiplier);
@@ -356,12 +340,10 @@
           const offset = ob.type === "inca" ? 15 : 0;
           const obLeft = ob.x + offset;
           if (ob.type === "steve" || ob.type === "inca") {
-            console.log("checking:", ob.type, "piniRight:", piniRight, "obLeft:", obLeft, "piniLeft:", piniLeft, "obRight:", obLeft + ob.w, "piniTop:", piniTop, "piniBottom:", piniBottom, "obY:", ob.y, "obBottom:", ob.y + ob.h);
           }
           if (piniRight > obLeft && piniLeft < obLeft + ob.w &&
           piniBottom > ob.y && piniTop < ob.y + ob.h) {
               gameOver = true;
-              console.log("gameover triggered");
             }
         }
 
