@@ -100,7 +100,7 @@
       let highScore      = localStorage.getItem("piniHighScore") ? parseInt(localStorage.getItem("piniHighScore")) : 0;
       let scene          = "title";
       let lastSpawnedType = "";
-    
+      
        
 
       const GROUND = 305;
@@ -277,9 +277,11 @@
           return;
         }
 
-         drawGameOver();
-         requestAnimationFrame(gameLoop);
-         return;
+        if (gameOver) {
+          bgMusic.pause();
+          drawGameOver();
+          requestAnimationFrame(gameLoop);
+          return;
       }
 
         frame++;
