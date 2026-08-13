@@ -82,10 +82,9 @@
       bgMusic.loop = true;
       bgMusic.volume = 0.5;
 
-      // Titlescreen music
-      const titleMusic = new Audio("titlescreen.mp3");
-      titleMusic.loop = true;
-
+      //Game Over Music
+      const gameOverMusic = new Audio("gameoversong.mp3");
+      gameOverMusic.loop = true;
 
 
 
@@ -129,13 +128,13 @@
 
         if (scene === "title") {
           scene = "game";
-          titleMusic.pause();
-          titleMusic.currentTime = 0;
           bgMusic.play();
           return;
         }
 
         if (gameOver) {
+          gameOverMusic.pause();
+          gameOverMusic.currentTime = 0;
           bgMusic.currentTime = 0;
           bgMusic.play();
           resetGame();
@@ -284,6 +283,9 @@
         }
 
         if (gameOver) {
+          if (!gameOverMusic.paused && gameOverMusic.currentTime === 0) {
+            gameOverMusic.play();
+          }
           drawGameOver();
           requestAnimationFrame(gameLoop);
           return;
@@ -383,7 +385,6 @@
         requestAnimationFrame(gameLoop);
       }
 
-      titleMusic.play();
 
       document.fonts.ready.then(() => {
         gameLoop();
