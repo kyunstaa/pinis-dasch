@@ -106,6 +106,7 @@
       let highScore      = localStorage.getItem("piniHighScore") ? parseInt(localStorage.getItem("piniHighScore")) : 0;
       let scene          = "title";
       let lastSpawnedType = "";
+      let gameOverMusicStarted = false;
        
 
       const GROUND = 305;
@@ -283,16 +284,16 @@
         }
 
         if (gameOver) {
-          if (gameOverMusic.paused) {
-            console.log("switching to game over music");
-            bgMusic.pause();
-            bgMusic.currentTime = 0;
-            gameOverMusic.play();
-          }
-          drawGameOver();
-          requestAnimationFrame(gameLoop);
-          return;
-        }
+         if (!gameOverMusicStarted) {
+           gameOverMusicStarted = true;
+           bgMusic.pause();
+           bgMusic.currentTime = 0;
+           gameOverMusic.play().catch(e => console.log("audio error:", e));
+       }
+         drawGameOver();
+         requestAnimationFrame(gameLoop);
+         return;
+      }
 
         frame++;
         const speedMultiplier = score >= 15 ? 1 + Math.min((score - 15)/100, 1.2) : 1;
