@@ -274,15 +274,11 @@
         if (scene === "title") {
           scene = "game";
           bgMusic.play();
-          return;
-        }
-        
-        if (scene === "title") {
           drawTitleScreen();
           requestAnimationFrame(gameLoop);
           return;
         }
-
+        
 
         if (gameOver) {
           drawGameOver();
