@@ -272,6 +272,8 @@
         ctx.imageSmoothingEnabled = false;
 
         if (scene === "title") {
+          scene = "game";
+          bgMusic.play();
           drawTitleScreen();
           requestAnimationFrame(gameLoop);
           return;
