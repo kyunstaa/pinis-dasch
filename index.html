@@ -98,7 +98,7 @@
       let gameOver       = false;
       let score          = 0;
       let highScore      = localStorage.getItem("piniHighScore") ? parseInt(localStorage.getItem("piniHighScore")) : 0;
-      let scene          = "titleXXX";
+      let scene          = "title";
       let lastSpawnedType = "";
       
        
@@ -116,7 +116,6 @@
         nextObstacleIn = 90;
         frame          = 0;
         groundX        = 0;
-        scene          = "game";
       }
 
       // Input
