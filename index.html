@@ -82,6 +82,9 @@
       bgMusic.loop = true;
       bgMusic.volume = 0.5;
 
+      // Titlescreen music
+      const titleMusic = new Audio("titlescreen.mp3");
+      titleMusic.loop = true;
 
 
 
@@ -126,6 +129,8 @@
 
         if (scene === "title") {
           scene = "game";
+          titleMusic.pause();
+          titleMusic.currentTime = 0;
           bgMusic.play();
           return;
         }
@@ -377,6 +382,8 @@
 
         requestAnimationFrame(gameLoop);
       }
+
+      titleMusic.play();
 
       document.fonts.ready.then(() => {
         gameLoop();
