@@ -284,6 +284,7 @@
 
         if (gameOver) {
           if (gameOverMusic.paused) {
+            console.log("switching to game over music");
             bgMusic.pause();
             bgMusic.currentTime = 0;
             gameOverMusic.play();
