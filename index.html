@@ -130,8 +130,8 @@
         }
 
         if (gameOver) {
-          bgMusic.pause();
           bgMusic.currentTime = 0;
+          bgMusic.play();
           resetGame();
           return;
         }
